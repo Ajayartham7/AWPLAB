@@ -1,0 +1,1 @@
+const {sum,dif,mul,div} from '../calculator.js'
