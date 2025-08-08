@@ -1,0 +1,38 @@
+
+GET http://localhost:3000/
+Content-Type:application/json
+
+###
+
+GET http://localhost:3000/list
+Content-Type: application/json
+
+###
+
+
+POST http://localhost:3000/students
+Content-Type: application/json
+
+{-
+  "name": "pranay",
+  "rollno": 6727
+}
+
+###
+
+PUT http://localhost:3000/students
+Content-Type: application/json
+
+{
+  "name": "pranayaa",
+  "rollno": 6727
+}
+
+###
+
+DELETE http://localhost:3000/students
+Content-Type: application/json
+
+{
+  "rollno": 6727
+}
