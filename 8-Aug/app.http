@@ -1,0 +1,11 @@
+POST http://localhost:3000/login 
+Content-Type:application/json
+
+{
+    "username":"ajaykumar",
+    "password":"ajay12345"
+}
+###
+
+GET http://localhost:3000
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFqYXlrdW1hciIsInBhc3N3b3JkIjoiYWpheTEyMzQ1IiwiaWF0IjoxNzU0NjQxNzEwfQ.g8e7qnbUOwr6teNROeqAMK_q3WaP3gdWiXhWKz1hITM
