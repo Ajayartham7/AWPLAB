@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Details Page</title>
+</head>
+<body>
+  <h2>Student Details</h2>
+  <form id="studentForm">
+    <label for="Studentname">Enter Student Name:</label>
+    <input type="text" id="Studentname" name="Studentname"><br><br>
+
+    <label for="Rollno">Enter Student Roll No:</label>
+    <input type="text" id="Rollno" name="Rollno"><br><br>
+
+    <label for="Branch">Enter Student Branch:</label>
+    <input type="text" id="Branch" name="Branch"><br><br>
+
+    <label for="year">Enter Student Year:</label>
+    <input type="text" id="year" name="year"><br><br>
+
+    <label for="CGPA">Enter Student CGPA:</label>
+    <input type="text" id="CGPA" name="CGPA"><br><br>
+
+    <button type="button" id="insertButton">INSERT</button>
+    <button type="button" id="deleteButton">DELETE</button>
+    <button type="button" id="updateButton">UPDATE</button>
+    <button type="button" id="displayButton">DISPLAY</button>
+  </form>
+
+  <pre id="output"></pre>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, set, get, update, remove, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBRIo2pp2staYfm-wJw-WgGTBqB4Cmg7hA",
+        authDomain: "nxttrends.firebaseapp.com",
+        projectId: "nxttrends",
+        storageBucket: "nxttrends.firebasestorage.app",
+        messagingSenderId: "238098246339",
+        appId: "1:238098246339:web:e8f8a0d8f3c71719eb5076",
+        measurementId: "G-QK8G25YM63",
+        databaseURL: "https://nxttrends-default-rtdb.firebaseio.com"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Helper to get form values
+    function getFormValues() {
+      return {
+        name: document.getElementById("Studentname").value,
+        rollno: document.getElementById("Rollno").value,
+        branch: document.getElementById("Branch").value,
+        year: document.getElementById("year").value,
+        cgpa: document.getElementById("CGPA").value
+      };
+    }
+
+    // Insert
+    document.getElementById("insertButton").addEventListener("click", () => {
+      const data = getFormValues();
+      set(ref(db, "students/" + data.rollno), data)
+        .then(() => alert("Data Inserted"))
+        .catch((error) => alert("Error: " + error));
+    });
+
+    // Delete
+    document.getElementById("deleteButton").addEventListener("click", () => {
+      const rollno = document.getElementById("Rollno").value;
+      remove(ref(db, "students/" + rollno))
+        .then(() => alert("Data Deleted"))
+        .catch((error) => alert("Error: " + error));
+    });
+
+    // Update
+    document.getElementById("updateButton").addEventListener("click", () => {
+      const data = getFormValues();
+      update(ref(db, "students/" + data.rollno), data)
+        .then(() => alert("Data Updated"))
+        .catch((error) => alert("Error: " + error));
+    });
+
+    // Display
+    document.getElementById("displayButton").addEventListener("click", () => {
+      const rollno = document.getElementById("Rollno").value;
+      const dbRef = ref(db);
+      get(child(dbRef, "students/" + rollno))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            document.getElementById("output").textContent = JSON.stringify(snapshot.val(), null, 2);
+          } else {
+            alert("No data found");
+          }
+        })
+        .catch((error) => alert("Error: " + error));
+    });
+  </script>
+</body>
+</html>
